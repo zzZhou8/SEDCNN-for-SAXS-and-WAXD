@@ -1,0 +1,1 @@
+# SEDCNN-for-SAXS-and-WAXD
