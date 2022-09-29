@@ -32,7 +32,7 @@ The optimization results on WAXD images are shown below
 1. run `python main.py --mode='tarin'` to training.
 2. run `python main.py --mode='test' --test_epochs=500` to test.
 3. run `python main.py --Loop_test='True'` Otherwise, the network will import each saved model and see how it performs on the test set (no output image will be generated, but numerical fitting and comparison will still be performed). 
-4. run `python main.py --Loop_test='False'` When loop testing is not selected , the model determined by test_EPOchs will be directly imported and the image prediction and numerical comparison will be performed.
+4. run `python main.py --Loop_test='False'` When loop testing is not selected , the model determined by test_epochs will be directly imported and the image prediction and numerical comparison will be performed.
 -----
 ## Explain
 In the SEDCNN_WAXD test, if you want to use the Revised_33 image used for the article (we have saved it to Revised_WAXD_tif), please use the model saved for 1000 epochs.  (Of course, it is basically the same as the test result of the model saved in 500 rounds, so it is hereby noted.) 
