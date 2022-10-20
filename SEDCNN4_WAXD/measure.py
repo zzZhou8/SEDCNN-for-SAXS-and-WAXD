@@ -13,17 +13,16 @@ def compute_measure(x,y,pred,data_range):
     pred_rmse = compute_RMSE(pred, y)
     return (original_psnr, original_ssim, original_rmse), (pred_psnr, pred_ssim, pred_rmse)
 
-def compute_MSE(img1,img2):#均方差
+def compute_MSE(img1,img2):
     return ((img1 - img2) ** 2).mean()
 
-def compute_RMSE(img1, img2):#均方根误差
+def compute_RMSE(img1, img2):
     if type(img1) == torch.Tensor:
         return torch.sqrt(compute_MSE(img1, img2)).item()
     else:
         return np.sqrt(compute_MSE(img1, img2))
 
-#这个data_range=2^n-1,这个n就是颜色的深度，比如8位保存的255，或者16位保存的2^16-1
-#PSNR越大失真越少
+
 def compute_PSNR(img1, img2, data_range):
     if type(img1) == torch.Tensor:
         mse_ = compute_MSE(img1, img2)
@@ -32,8 +31,6 @@ def compute_PSNR(img1, img2, data_range):
         mse_ = compute_MSE(img1, img2)
         return 10 * np.log10((data_range ** 2) / mse_)
 
-#计算两张图片的相似性的
-#结构相似性的范围为0到1。当两张图像一模一样时，SSIM的值等于1。
 def compute_SSIM(img1, img2, data_range, window_size=11, channel=1, size_average=True):
     # referred from https://github.com/Po-Hsun-Su/pytorch-ssim
     if len(img1.size()) == 2:
