@@ -7,7 +7,7 @@ from solver import Solver
 parser = argparse.ArgumentParser()
 
 parser.add_argument('--mode', type=str, default='test')
-parser.add_argument('--Loop_test', type=bool, default=True)#决定是否循环测试
+parser.add_argument('--Loop_test', type=bool, default=True)#Test all the saved models
 parser.add_argument('--result_fig', type=bool, default=True)
 parser.add_argument('--save_epochs', type=int, default=20)#460
 parser.add_argument('--test_epochs', type=int, default=500)#23000
@@ -35,30 +35,30 @@ args = parser.parse_args(args=[])
 
 def main(args):
     
-    if not os.path.exists(args.save_path):#没有就产生一个
+    if not os.path.exists(args.save_path):
         os.makedirs(args.save_path)
         print('Create path : {}'.format(args.save_path))
 
-    if args.result_fig:#专门存结果的地方
+    if args.result_fig:
         fig_path = os.path.join(args.save_path, 'fig')
         if not os.path.exists(fig_path):
             os.makedirs(fig_path)
             print('Create path : {}'.format(fig_path))
 
-    print('正在准备数据啦')
-    data_loader = get_loader(mode=args.mode,#默认为train
+    print('Preparing data')
+    data_loader = get_loader(mode=args.mode,
                              saved_path=args.saved_path,#'./npy_img/'
-                             Loop_test=(args.Loop_test if args.mode=='test' else None),#训练时为否，测试为可选激活项
-                             batch_size=(args.batch_size if args.mode=='train' else 1),#训练时为16，测试时为1
+                             Loop_test=(args.Loop_test if args.mode=='test' else None),
+                             batch_size=(args.batch_size if args.mode=='train' else 1),
                              )
-    print('数据准备好啦')
+    print('The data is ready')
     solver = Solver(args, data_loader)
-    print('solver准备好了')
+    print('Solver is ready')
     if args.mode == 'train':
-        print('开始训练啦')
+        print('Lets start training.')
         solver.train()
     elif args.mode == 'test':
-        print('开始测试啦')
+        print('Lets start testing')
         solver.test()
 
 main(args)
