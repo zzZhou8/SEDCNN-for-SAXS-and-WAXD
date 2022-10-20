@@ -49,25 +49,24 @@ class DownsampleBlock(nn.Module):
 
         mid_channels = int(out_channels_final/4)
         out_channels = int(out_channels_final/2)
-        #5*5的降采样
+
         self.conv5_1 = nn.Conv2d(in_channels, mid_channels, kernel_size=5, stride=2, padding=2)   #N   -- N/2
         self.conv5_2 = nn.Conv2d(mid_channels, out_channels, kernel_size=5, stride=1, padding=2)  #N/2 -- N/2
-        #3*3的降采样
+
         self.conv3_1 = nn.Conv2d(in_channels, mid_channels, kernel_size=3, stride=2, padding=1)   #N   -- N/2
         self.conv3_2 = nn.Conv2d(mid_channels, out_channels, kernel_size=3, stride=1, padding=1)  #N/2 -- N/2
-        #RELU激活
+
         self.relu = nn.ReLU(inplace=True)
 
     def forward(self, x):
 
-        #依赖于3*3卷积的N-- N/2的操作
+
         conv3 = self.relu(self.conv3_1(x))
         conv3 = self.conv3_2(conv3)
 
-        #依赖于5*5卷积的N-- N/2的操作
         conv5 = self.relu(self.conv5_1(x))
         conv5 = self.conv5_2(conv5)
-        #通道叠加
+
         output = torch.cat((conv3,conv5),dim=1)
 
         return output
@@ -94,18 +93,15 @@ class UpsampleBlock(nn.Module):
 
     def forward(self, inputs):
         inp, skip = inputs
-        #进行一次卷积操作
+
         layer_out1 = self.residual_conv(inp)                #N -- N
-        #向上采样
         layer_out1 = self.upsample(layer_out1)              #N -- 2N
-        #投影叠加
         layer_out2 = self.proj_conv(skip)                   #N -- N
-        #通道叠加
         layer_out = torch.cat((layer_out1,layer_out2),dim=1)
 
         return layer_out
    
-#4个核心层
+
 class SEDCNN_WAXD(nn.Module):
     def __init__(self):
         super(SEDCNN_WAXD, self).__init__()
