@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-#本节专门用于观察loss曲线,输入的是你要看的iters。
+
 def See_loss(start,epochs_end):
     curve=np.load('./save/loss_{}_epochs.npy'.format(epochs_end))[start:epochs_end]
     print(curve[-1])
@@ -12,7 +12,7 @@ def See_loss(start,epochs_end):
     plt.ylabel("loss")
     plt.legend(["train_loss"])
 
-#进度条
+
 def printProgressBar(iteration,total,prefix='',suffix='',decimals=1,length=100,fill=' '):
     # referred from https://gist.github.com/snakers4/91fa21b9dda9d055a02ecd23f24fbc3d
     percent=('{0:.'+str(decimals)+'f}').format(100 * (iteration / float(total)))
@@ -22,5 +22,4 @@ def printProgressBar(iteration,total,prefix='',suffix='',decimals=1,length=100,f
     if iteration == total:
         print()
 
-#See_loss(1000,17920)
 
