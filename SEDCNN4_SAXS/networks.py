@@ -5,11 +5,11 @@ from collections import OrderedDict
 def Conv2D(in_channels:int,out_channels:int,kernel_size:int,stride:int,padding:int,is_seperable:bool=False,has_relu:bool=False):
     modules = OrderedDict()
     
-    #深度可分离卷积，算是减少参数的法子
+  
     if is_seperable:
         modules['depthwise'] = nn.Conv2d(in_channels,in_channels,kernel_size,stride,padding,groups=in_channels, bias=False)
         modules['pointwise'] = nn.Conv2d(in_channels,out_channels,kernel_size=1, stride=1, padding=0, bias=True)
-    #直接卷积没那么多事
+
     else:
         modules['conv'] = nn.Conv2d(in_channels, out_channels, kernel_size, stride, padding,bias=True)
     
