@@ -50,11 +50,11 @@ class DownsampleBlock(nn.Module):
         mid_channels = int(out_channels_final/4)
         out_channels = int(out_channels_final/2)
 
-        self.conv5_1 = nn.Conv2d(in_channels, mid_channels, kernel_size=5, stride=2, padding=2)   #N   -- N/2
-        self.conv5_2 = nn.Conv2d(mid_channels, out_channels, kernel_size=5, stride=1, padding=2)  #N/2 -- N/2
+        self.conv3_1 = nn.Conv2d(in_channels, mid_channels, kernel_size=5, stride=2, padding=2)   #N   -- N/2
+        self.conv3_2 = nn.Conv2d(mid_channels, out_channels, kernel_size=5, stride=1, padding=2)  #N/2 -- N/2
 
-        self.conv3_1 = nn.Conv2d(in_channels, mid_channels, kernel_size=3, stride=2, padding=1)   #N   -- N/2
-        self.conv3_2 = nn.Conv2d(mid_channels, out_channels, kernel_size=3, stride=1, padding=1)  #N/2 -- N/2
+        self.conv5_1 = nn.Conv2d(in_channels, mid_channels, kernel_size=3, stride=2, padding=1)   #N   -- N/2
+        self.conv5_2 = nn.Conv2d(mid_channels, out_channels, kernel_size=3, stride=1, padding=1)  #N/2 -- N/2
 
         self.relu = nn.ReLU(inplace=True)
 
